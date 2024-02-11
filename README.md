@@ -41,5 +41,7 @@ Hello world
 [{'result': {'error': 'division by zero', 'where': 'division'}, 'success': False}]
 ```
 
-In this example we simply use logical `or` to give the `errors` if any exist.
-We could also return the `Minder` instance and handle success/failure at the call site.
+In this example we expose a reliable interface of a `result` and `success` boolean.
+
+We could also return `guard` (the `Minder` instance) and handle success/failure at the call site,
+but the assumption is we would rather have this prepared for us.

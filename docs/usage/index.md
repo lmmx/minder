@@ -31,5 +31,5 @@ The `Minder` context manager keeps failure modes **contained** with minimal **le
 
 In this example we expose a reliable interface of a `result` and `success` boolean.
 
-We could also return the `Minder` instance and handle success/failure at the call site,
+We could also return `guard` (the `Minder` instance) and handle success/failure at the call site,
 but the assumption is we would rather have this prepared for us.
