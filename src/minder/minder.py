@@ -1,6 +1,6 @@
-"""The `Minder` context manager carries out duties in blocks.
+"""The `Minder` context manager is given a `Duty` for the duration of its context block.
 
-It exits without raising if an error is encountered by recording it as a `Duty`.
+It exits without raising if an error is encountered by recording it in `errors`.
 """
 
 from __future__ import annotations
@@ -10,7 +10,15 @@ __all__ = ["Minder", "Duty"]
 
 
 class Minder:
-    """Exceptions raised in this ContextManager become stored as `errors`."""
+    """Exceptions raised in this ContextManager become stored as `errors`.
+
+    Attributes
+    ----------
+      result: A dict which can hold the result.
+      errors: A list of dicts (to serialise one or more exceptions along with a string
+              indicating their location).
+
+    """
 
     def __init__(self):
         """Prepare an empty dict as `result` and empty list for `errors`."""

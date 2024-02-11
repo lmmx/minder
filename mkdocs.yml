@@ -97,6 +97,7 @@ plugins:
 nav:
   - Home:
       - index.md
+      - motivation.md
   - Usage:
       - User guides: usage/index.md
   - APIs:
