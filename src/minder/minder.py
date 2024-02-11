@@ -12,8 +12,7 @@ __all__ = ["Minder", "Duty"]
 class Minder:
     """Exceptions raised in this ContextManager become stored as `errors`.
 
-    Attributes
-    ----------
+    Attributes:
       result: A dict which can hold the result.
       errors: A list of dicts (to serialise one or more exceptions along with a string
               indicating their location).
