@@ -99,7 +99,5 @@ nav:
       - index.md
   - Usage:
       - User guides: usage/index.md
-      - usage/minder.md
   - APIs:
       - api/index.md
-      - api/minder.md
