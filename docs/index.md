@@ -15,6 +15,22 @@ exception raising.
 
     :material-head-question: **Legibility**: Error handling does not make code hard to read.
 
-For an overview of how to robustly handle code that could fail, see [Motivation](motivation.md).
+<div class="grid cards" markdown>
 
-For an example of how to use it in your program see [Usage](usage/index.md).
+-   :material-check-circle:{ .lg .middle } __Robust Code Handling__
+
+    ---
+
+    Read how we can robustly handle code that could fail and debug faster.
+
+    [:octicons-arrow-right-24: Motivation](motivation.md)
+
+-   :material-flag-checkered:{ .lg .middle } __Easy to Use__
+
+    ---
+
+    Read the code examples here.
+
+    [:octicons-arrow-right-24: Usage Guide](usage/index.md)
+
+</div>
