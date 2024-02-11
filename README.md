@@ -1,4 +1,4 @@
-# minder
+# Minder
 
 [![PyPI](https://img.shields.io/pypi/v/minder?logo=python&logoColor=%23cccccc)](https://pypi.org/project/minder)
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
@@ -15,24 +15,32 @@ Exception guard capture utility library.
 pip install minder
 ```
 
-```py
-from minder import Minder
+## Demo
+
+The `Minder` context manager keeps failure modes **contained** with minimal **legibility** cost:
+
+???+ failure
+
+    ```py
+    from minder import Minder
+
+    def main() -> dict:
+        with Minder() as guard:
+            with guard.duty("greet"):
+                print("Hello")
+            with guard.duty("division"):
+                guard.result = 1 / 0
+        return guard.errors or guard.result
 
 
-def risky_business() -> dict:
-    with Minder() as guard:
-        with guard.duty("greet"):
-            print("Hello")
-        with guard.duty("calculation"):
-            guard.result = 1 / 0
-    return guard.errors or guard.result
+    response = main()
+    print(f"Got {response=}")
+    ```
 
+    ```py
+    Hello
+    Got response=[{'error': 'division by zero', 'where': 'division'}]
+    ```
 
-response = risky_business()
-print(f"Got {response=}")
-```
-
-```
-Hello
-Got response=[{'error': 'division by zero', 'where': 'calculation'}]
-```
+In this example we simply use logical `or` to give the `errors` if any exist.
+We could also return the `Minder` instance and handle success/failure at the call site.

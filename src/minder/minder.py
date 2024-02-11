@@ -43,7 +43,7 @@ class Minder:
 
 
 class Duty:
-    """Ensures any exception is handled and stored in `response` upon early exit."""
+    """Ensures any exception is handled and stored in `result` upon early exit."""
 
     mgr: Minder
     where: str
