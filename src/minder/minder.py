@@ -46,6 +46,11 @@ class Minder:
         return
 
     def report(self) -> dict:
+        """Provide a simple interface: `result` and `success` bool.
+
+        If the operation failed the `result` will be a dict of an `error` message
+        and `where` (the location of the `Duty` in which the exception raised).
+        """
         return {"result": self.result, "success": not self.failed}
 
 
