@@ -99,6 +99,6 @@ nav:
       - index.md
       - motivation.md
   - Usage:
-      - User guides: usage/index.md
+      - Usage Guide: usage/index.md
   - APIs:
       - api/index.md

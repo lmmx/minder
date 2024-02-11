@@ -1,9 +1,3 @@
-# Minder
-
-Exception guard capture utility library.
-
-## Demo
-
 The `Minder` context manager keeps failure modes **contained** with minimal **legibility** cost:
 
 ???+ success
