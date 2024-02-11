@@ -23,21 +23,21 @@ The `Minder` context manager keeps failure modes **contained** with minimal **le
 from minder import Minder
 
 def main() -> dict:
-with Minder() as guard:
-    with guard.duty("greet"):
-	print("Hello world")
-    with guard.duty("division"):
-	guard.result = 1 / 0
-return guard.errors or guard.result
+    with Minder() as guard:
+        with guard.duty("greet"):
+            print("Hello world")
+        with guard.duty("division"):
+            guard.result = 1 / 0
+    return guard.errors or guard.result
 
 
 response = main()
-print(f"Got {response=}")
+print(response)
 ```
 
 ```py
 Hello world
-Got response=[{'error': 'division by zero', 'where': 'division'}]
+[{'error': 'division by zero', 'where': 'division'}]
 ```
 
 In this example we simply use logical `or` to give the `errors` if any exist.
