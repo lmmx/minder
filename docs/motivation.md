@@ -67,7 +67,7 @@ finally:
             except Exception as exc:
                 response = {"error": str(exc), "where": "C"}
             else:
-	        response = {"result": c}
+                response = {"result": c}
     finally:
         return response
     ```
