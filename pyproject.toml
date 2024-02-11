@@ -26,7 +26,7 @@ Homepage = "https://github.com/lmmx/minder"
 Repository = "https://github.com/lmmx/minder.git"
 
 [tool.pdm]
-distribution = false
+distribution = true
 
 [tool.pdm.dev-dependencies]
 docs = [
