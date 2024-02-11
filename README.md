@@ -8,3 +8,9 @@
 <!-- [![build status](https://github.com/lmmx/minder/actions/workflows/master.yml/badge.svg)](https://github.com/lmmx/minder/actions/workflows/master.yml) -->
 
 Exception guard capture utility library.
+
+## Installation
+
+```sh
+pip install minder
+```
