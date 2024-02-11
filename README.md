@@ -23,7 +23,29 @@ The `Minder` context manager keeps failure modes **contained** with minimal **le
 ```py
 from minder import Minder
 
-def main() -> dict:
+
+def succeed() -> dict:
+    with Minder() as guard:
+        with guard.duty("winning"):
+            guard.result = 100
+    return guard.report()
+
+
+response = succeed()
+print(response)
+```
+
+```py
+{'result': 100, 'success': True}
+```
+
+When an error is encountered, we get the same interface.
+
+```py
+from minder import Minder
+
+
+def fail() -> dict:
     with Minder() as guard:
         with guard.duty("greet"):
             print("Hello world")
@@ -32,13 +54,13 @@ def main() -> dict:
     return guard.report()
 
 
-response = main()
+response = fail()
 print(response)
 ```
 
 ```py
 Hello world
-[{'result': {'error': 'division by zero', 'where': 'division'}, 'success': False}]
+{'result': {'error': 'division by zero', 'where': 'division'}, 'success': False}
 ```
 
 In this example we expose a reliable interface of a `result` and `success` boolean.
