@@ -17,7 +17,7 @@ The `Minder` context manager keeps failure modes **contained** with minimal **le
                 print("Hello world")
             with guard.duty("division"):
                 guard.result = 1 / 0
-        return guard.errors or guard.result
+        return guard.report()
 
 
     response = main()
@@ -26,8 +26,10 @@ The `Minder` context manager keeps failure modes **contained** with minimal **le
 
     ```py
     Hello world
-    Got response=[{'error': 'division by zero', 'where': 'division'}]
+    Got response=[{'result': {'error': 'division by zero', 'where': 'division'}, 'success': False}]
     ```
 
-In this example we simply use logical `or` to give the `errors` if any exist.
-We could also return the `Minder` instance and handle success/failure at the call site.
+In this example we expose a reliable interface of a `result` and `success` boolean.
+
+We could also return the `Minder` instance and handle success/failure at the call site,
+but the assumption is we would rather have this prepared for us.

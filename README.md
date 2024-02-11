@@ -29,7 +29,7 @@ def main() -> dict:
             print("Hello world")
         with guard.duty("division"):
             guard.result = 1 / 0
-    return guard.errors or guard.result
+    return guard.report()
 
 
 response = main()
@@ -38,7 +38,7 @@ print(response)
 
 ```py
 Hello world
-[{'error': 'division by zero', 'where': 'division'}]
+[{'result': {'error': 'division by zero', 'where': 'division'}, 'success': False}]
 ```
 
 In this example we simply use logical `or` to give the `errors` if any exist.

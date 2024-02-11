@@ -1,6 +1,6 @@
 """The `Minder` context manager is given a `Duty` for the duration of its context block.
 
-It exits without raising if an error is encountered by recording it in `errors`.
+It exits without raising if an error is encountered by recording it in `error`.
 """
 
 from __future__ import annotations
@@ -10,26 +10,24 @@ __all__ = ["Minder", "Duty"]
 
 
 class Minder:
-    """Exceptions raised in this ContextManager become stored as `errors`.
+    """Exceptions raised in this ContextManager become stored as `error`.
 
     Attributes:
-      result: A dict which can hold the result.
-      errors: A list of dicts (to serialise one or more exceptions along with a string
-              indicating their location).
-
+      result: A dict which holds the result.
+      failed: A flag indicating whether the operation failed.
     """
 
     def __init__(self):
-        """Prepare an empty dict as `result` and empty list for `errors`."""
+        """Prepare an empty dict as `result` and `failed` as `False`."""
         self.result = {}
-        self.errors = []
+        self.failed = False
 
     def __enter__(self):
         """Make the context manager assignable (`with Minder() as ...:`)."""
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """Suppress the exception: it was already recorded in `errors`."""
+        """Suppress the exception: it was already recorded in `result`."""
         return exc_type is not None
 
     def duty(self, where: str, recoverable: bool = False) -> Duty:
@@ -37,9 +35,18 @@ class Minder:
         return Duty(mgr=self, where=where, recoverable=recoverable)
 
     def record_breach(self, where: str, error: str) -> None:
-        """Add the serialised `error` and its location `where` to the `errors` list."""
-        self.errors.append({"error": error, "where": where})
+        """Record the serialised `error` message and its location `where` in the `result`."""
+        self.failed = True
+        self.result = {"error": error, "where": where}
         return
+
+    def record_result(self, result) -> None:
+        """Record a positive `result`."""
+        self.result = result
+        return
+
+    def report(self) -> dict:
+        return {"result": self.result, "success": not self.failed}
 
 
 class Duty:
@@ -53,8 +60,8 @@ class Duty:
         """Register the `Minder` to report to and how to handle an incident.
 
         Prepare to report `where` the breach occurred, and whether to suppress the
-        exception (if `recoverable` the error will be reported but will not halt further
-        execution upon completion and exit of the `Duty` block).
+        exception (if `recoverable` the error will not halt further execution upon
+        exit of the `Duty` context manager block).
         """
         self.mgr = mgr
         self.where = where
@@ -78,5 +85,6 @@ class Duty:
                 #     error = ve.json()
                 case _:
                     error = str(exc_val)
-            self.mgr.record_breach(error=error, where=self.where)
-            return self.recoverable  # Only suppress the exception if it was recoverable
+            if not self.recoverable:
+                self.mgr.record_breach(error=error, where=self.where)
+            return self.recoverable  # Suppress the exception if it was recoverable

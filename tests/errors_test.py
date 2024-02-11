@@ -15,9 +15,12 @@ def fail_early(event: dict):
             print(f"Received {event}")
         with guard.duty("finalising"):
             guard.result = {"result": "Success"}
-    return guard.errors or guard.result
+    return guard.report()
 
 
 def test_fail_early():
     """Confirm that the error message was stringified in the error key at ingestion."""
-    assert fail_early({}) == [{"error": "Input was empty", "where": "ingestion"}]
+    assert fail_early({}) == {
+        "result": {"error": "Input was empty", "where": "ingestion"},
+        "success": False,
+    }
