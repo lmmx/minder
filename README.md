@@ -14,3 +14,25 @@ Exception guard capture utility library.
 ```sh
 pip install minder
 ```
+
+```py
+from minder import Minder
+
+
+def risky_business() -> dict:
+    with Minder() as guard:
+        with guard.duty("greet"):
+            print("Hello")
+        with guard.duty("calculation"):
+            guard.result = 1 / 0
+    return guard.errors or guard.result
+
+
+response = risky_business()
+print(f"Got {response=}")
+```
+
+```
+Hello
+Got response=[{'error': 'division by zero', 'where': 'calculation'}]
+```
