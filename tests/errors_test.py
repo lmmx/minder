@@ -1,4 +1,5 @@
 """Test that `Duty` failures are reported to the `Minder`."""
+
 from minder import Minder
 
 
