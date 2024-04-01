@@ -1,4 +1,5 @@
 """Exception guard capture utility library."""
+
 from .minder import Minder
 
 

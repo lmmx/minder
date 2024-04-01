@@ -1,4 +1,5 @@
 """Test that a `Minder` works when no error is raised (trivial case)."""
+
 from minder import Minder
 
 
