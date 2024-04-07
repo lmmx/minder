@@ -1,8 +1,6 @@
 #!/bin/bash
 
-yum install wget
-
-wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+curl -sL https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
 
 ./bin/micromamba shell init -s bash -p ~/micromamba
 # Python interpreter lives at /vercel/micromamba/bin/python
