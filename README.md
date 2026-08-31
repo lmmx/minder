@@ -35,7 +35,7 @@ print(response)
 ```
 
 ```py
-{'result': 100, 'success': True}
+{"result": 100, "success": True}
 ```
 
 When an error is encountered, we get the same interface.
