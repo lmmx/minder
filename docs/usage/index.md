@@ -18,7 +18,7 @@ The `Minder` context manager keeps failure modes **contained** with minimal **le
     ```
 
     ```py
-    {'result': 100, 'success': True}
+    {"result": 100, "success": True}
     ```
 
 When an error is encountered, we get the same interface.
